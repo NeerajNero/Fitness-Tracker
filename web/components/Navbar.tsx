@@ -29,6 +29,9 @@ export function Navbar() {
               <Button variant="ghost" asChild>
                 <Link href="/dashboard">Dashboard</Link>
               </Button>
+              <Button variant="ghost" asChild>
+                <Link href="/nutrition">Nutrition</Link>
+              </Button>
               <Button onClick={logout}>Logout</Button>
             </>
           ) : (
@@ -58,6 +61,9 @@ export function Navbar() {
                   <>
                     <Button variant="ghost" asChild onClick={closeSheet}>
                       <Link href="/dashboard">Dashboard</Link>
+                    </Button>
+                    <Button variant="ghost" asChild onClick={closeSheet}>
+                      <Link href="/nutrition">Nutrition</Link>
                     </Button>
                     <Button onClick={() => { closeSheet(); logout(); }}>
                       Logout
