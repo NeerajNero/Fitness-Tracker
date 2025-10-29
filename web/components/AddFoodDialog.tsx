@@ -1,4 +1,3 @@
-// web/src/components/AddFoodDialog.tsx
 "use client";
 
 import { useForm } from "react-hook-form";
