@@ -3,10 +3,24 @@ import { Controller, Get, Post, Body, UseGuards, Request, Param, Patch, Delete }
 import { WorkoutsService } from './workouts.service';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Query } from '@nestjs/common';
+import { WorkoutStatsDto } from './dto/workout-stats.dto';
 
 @Controller('workouts')
 export class WorkoutsController {
   constructor(private readonly workoutsService: WorkoutsService) {}
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('stats/progress')
+  getExerciseProgress(
+    @Request() req,
+    @Query() workoutStatsDto: WorkoutStatsDto,
+  ) {
+    return this.workoutsService.getExerciseProgress(
+      req.user.id,
+      workoutStatsDto.exerciseName,
+    );
+  }
 
   @UseGuards(AuthGuard('jwt')) // 🔐 Protect this route!
   @Post()

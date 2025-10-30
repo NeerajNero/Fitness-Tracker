@@ -104,4 +104,39 @@ export class WorkoutsService {
       return deletedWorkout;
     });
   }
+
+  async getExerciseProgress(userId: string, exerciseName: string) {
+    // Find all exercises for this user that match the name
+    const progress = await this.prisma.exercise.findMany({
+      where: {
+        workout: {
+          userId: userId, // Ensure it's the correct user
+        },
+        name: {
+          equals: exerciseName,
+          mode: 'insensitive', // Make the search case-insensitive
+        },
+      },
+      select: {
+        weight: true, // Get the weight
+        workout: {
+          select: {
+            date: true,
+          },
+        },
+      },
+      orderBy: {
+        workout: {
+          date: 'asc', // Order by date, oldest to newest
+        },
+      },
+    });
+
+    // Format the data to be clean for the chart
+    // We want [{ date: '...', weight: '...' }]
+    return progress.map((entry) => ({
+      date: entry.workout.date,
+      weight: entry.weight,
+    }));
+  }
 }

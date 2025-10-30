@@ -122,4 +122,47 @@ export class NutritionService {
       },
     });
   }
+
+  async getDailySummary(userId: string, startDate: Date, endDate: Date) {
+    // 1. Get all meal entries within the date range
+    const mealEntries = await this.prisma.mealEntry.findMany({
+      where: {
+        userId: userId,
+        date: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      select: {
+        date: true,
+        calories: true,
+        protein: true,
+      },
+    });
+
+    // 2. Process the data in JavaScript
+    // Group by day and sum the values
+    const dailyTotals = new Map<string, { date: Date; calories: number; protein: number }>();
+
+    for (const entry of mealEntries) {
+      const day = entry.date.toISOString().split('T')[0]; // Get 'YYYY-MM-DD'
+
+      if (!dailyTotals.has(day)) {
+        dailyTotals.set(day, {
+          date: new Date(day),
+          calories: 0,
+          protein: 0,
+        });
+      }
+
+      const dayData = dailyTotals.get(day)!;
+      dayData.calories += entry.calories;
+      dayData.protein += entry.protein;
+    }
+
+    // 3. Return the processed data as an array, sorted by date
+    return Array.from(dailyTotals.values()).sort(
+      (a, b) => a.date.getTime() - b.date.getTime(),
+    );
+  }
 }

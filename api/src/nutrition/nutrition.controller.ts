@@ -17,10 +17,32 @@ import {
   UpdateGoalsDto,
 } from './nutrition.service';
 
+import  {NutritionStatsDto}  from './dto/nutrition-stats.dto';
+
 @UseGuards(AuthGuard('jwt')) // Protect all routes in this controller
 @Controller('nutrition')
 export class NutritionController {
   constructor(private readonly nutritionService: NutritionService) {}
+
+  // --- ADD THIS NEW ROUTE ---
+  @Get('stats/summary')
+  getDailySummary(@Request() req, @Query() dto: NutritionStatsDto) {
+    // Set default date range (e.g., last 7 days)
+    const endDate = dto.endDate ? new Date(dto.endDate) : new Date();
+    const startDate = dto.startDate
+      ? new Date(dto.startDate)
+      : new Date(new Date().setDate(endDate.getDate() - 6)); // 7 days ago
+
+    // Set time to start and end of day
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(23, 59, 59, 999);
+
+    return this.nutritionService.getDailySummary(
+      req.user.id,
+      startDate,
+      endDate,
+    );
+  }
 
   // --- Goals ---
   @Get('goals')

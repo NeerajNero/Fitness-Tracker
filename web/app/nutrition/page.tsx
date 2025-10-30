@@ -12,6 +12,7 @@ import { Progress } from "@/components/ui/progress";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@/components/ui/button";
 import { AddFoodDialog } from "@/components/AddFoodDialog";
+import { LogMealForm } from "@/components/LogMealForm"; // Import the new form
 
 // --- API Functions ---
 const fetchGoals = async (): Promise<UserGoals> => {
@@ -80,7 +81,7 @@ export default function NutritionPage() {
         <CardHeader>
           <CardTitle>Today's Summary</CardTitle>
           <CardDescription>
-            Your progress towards your daily goals. (You can set goals in Settings)
+            Your progress towards your daily goals.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -101,15 +102,10 @@ export default function NutritionPage() {
         </CardContent>
       </Card>
 
-      {/* --- Meal Logging Section (Coming Next) --- */}
+      {/* --- Meal Logging Section --- */}
       <div className="mb-6">
-        {/* We will add the "Log a Meal" form here */}
         <h2 className="text-2xl font-semibold mb-4">Log a Meal</h2>
-        <Card>
-          <CardContent className="p-6">
-            <p>Meal logging form will go here.</p>
-          </CardContent>
-        </Card>
+        <LogMealForm selectedDate={selectedDate} />
       </div>
 
       {/* --- Daily Log --- */}

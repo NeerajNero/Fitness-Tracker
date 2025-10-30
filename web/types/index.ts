@@ -36,3 +36,15 @@ export interface MealEntry {
   protein: number;
   food: Food; // The full food object is included
 }
+
+export interface ExerciseProgress {
+  date: string;
+  weight: number;
+}
+
+// For the nutrition summary chart
+export interface DailySummary {
+  date: string;
+  calories: number;
+  protein: number;
+}
