@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import { AuthProvider } from "./context/AuthContext";
 import { Navbar } from "@/components/Navbar";
+import { Toaster } from "sonner"; // 1. Import Toaster from sonner
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,20 +23,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
           <AuthProvider>
             <Navbar />
-            <main>
-              {children}
-            </main>
+            <main>{children}</main>
+            <Toaster richColors /> {/* 2. Add Toaster here (richColors is a nice style) */}
           </AuthProvider>
         </Providers>
       </body>
