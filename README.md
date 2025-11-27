@@ -2,9 +2,6 @@
 
 FitTrack is a modern, full-stack web application built to help users log their workouts, track their daily nutrition, and visualize their progress over time. It features a secure, cookie-based authentication system with both email/password and Google OAuth options.
 
-!(https://i.imgur.com/YOUR_IMAGE_URL.png) 
-*(Suggestion: Replace this with a screenshot of your main dashboard!)*
-
 ---
 
 ## ✨ Key Features
