@@ -29,9 +29,6 @@ FitTrack is a modern, full-stack web application built to help users log their w
 
 This project is built with a modern, type-safe stack, structured with separate frontend and backend applications.
 
-!(https://i.imgur.com/YOUR_DIAGRAM_URL.png)
-*(Suggestion: Add a simple diagram showing: Vercel -> Render API -> Render DB)*
-
 ### 🖥️ Frontend (Deployed on Vercel)
 
 * **Framework:** Next.js 14 (App Router)
